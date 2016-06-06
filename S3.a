@@ -1,0 +1,288 @@
+; Shane R Kelly    Mon Mar 14 17:09:16 2016
+; Output from S3 compiler
+;    x = +3 + -2 + 1;
+          pc        x
+          pwc       3
+          pwc       -2
+          add 
+          pwc       1
+          add 
+;    y = x;
+          stav
+          pc        y
+          p         x
+;    z = x*(2 + y) + (((4099)));
+          stav
+          pc        z
+          p         x
+          pwc       2
+          p         y
+          add 
+          mult
+          pwc       4099
+          add 
+;    println(z + x + -2);
+          stav
+          p         z
+          p         x
+          add 
+          pwc       -2
+          add 
+          dout
+          pc        '\n'
+          aout
+;    println(4107);
+          pwc       4107
+          dout
+          pc        '\n'
+          aout
+;    println("S1 test done");
+          pc        @L0
+          sout
+^@L0:     dw        "S1 test done"
+          pc        '\n'
+          aout
+; //==========================================================
+; // Add support for subtraction, division, null statement, 
+; // compound statement, print statement, and single-line
+; // comments.
+;    println((z - (x - 50)   // comment in middle of statement
+          p         z
+          p         x
+          pwc       50
+          sub 
+;         ) / 2 - x);
+          sub 
+          pwc       2
+          div 
+          p         x
+          sub 
+          dout
+          pc        '\n'
+          aout
+;    println(2075);
+          pwc       2075
+          dout
+          pc        '\n'
+          aout
+;    ;                       // null statement 
+;    {{;                     // compound statement
+;       {
+;       x = 10;  
+          pc        x
+          pwc       10
+;       ;
+          stav
+;       y = 20;
+          pc        y
+          pwc       20
+;    }};}
+          stav
+;    {}
+;    print(x);
+          p         x
+          dout
+;    println(x);
+          p         x
+          dout
+          pc        '\n'
+          aout
+;    println(1010);
+          pwc       1010
+          dout
+          pc        '\n'
+          aout
+;    println(y);
+          p         y
+          dout
+          pc        '\n'
+          aout
+;    println(20);
+          pwc       20
+          dout
+          pc        '\n'
+          aout
+;    x = 1 + (2 + (3+ 4));
+          pc        x
+          pwc       1
+          pwc       2
+          pwc       3
+          pwc       4
+          add 
+          add 
+          add 
+;    println(x);
+          stav
+          p         x
+          dout
+          pc        '\n'
+          aout
+;    println(10);
+          pwc       10
+          dout
+          pc        '\n'
+          aout
+;    x = 1 + 2 + 3 + 4 + 5;
+          pc        x
+          pwc       1
+          pwc       2
+          add 
+          pwc       3
+          add 
+          pwc       4
+          add 
+          pwc       5
+          add 
+;    println(x);
+          stav
+          p         x
+          dout
+          pc        '\n'
+          aout
+;    println(15);
+          pwc       15
+          dout
+          pc        '\n'
+          aout
+;    println("S2 test done");
+          pc        @L1
+          sout
+^@L1:     dw        "S2 test done"
+          pc        '\n'
+          aout
+; //==========================================================
+; // Add support, println with zero arguments, println and 
+; // print with string argument, cascaded assignment 
+; // statement, unary plus and minus, and readint statement.
+;    println("four lines follow");
+          pc        @L2
+          sout
+^@L2:     dw        "four lines follow"
+          pc        '\n'
+          aout
+;    print("one line");
+          pc        @L3
+          sout
+^@L3:     dw        "one line"
+;    println();
+          pc        '\n'
+          aout
+;    println("one line");
+          pc        @L4
+          sout
+^@L4:     dw        "one line"
+          pc        '\n'
+          aout
+;    println("third line\nfourth line");
+          pc        @L5
+          sout
+^@L5:     dw        "third line\nfourth line"
+          pc        '\n'
+          aout
+;    x = y = z = + - - - - - + -7;
+          pc        x
+          pc        y
+          pc        z
+          pwc       -7
+          neg 
+;    print(x);
+          dupe
+          rot 
+          stav
+          dupe
+          rot 
+          stav
+          stav
+          p         x
+          dout
+;    print(" = ");
+          pc        @L6
+          sout
+^@L6:     dw        " = "
+;    print(y);
+          p         y
+          dout
+;    print(" = ");
+          pc        @L7
+          sout
+^@L7:     dw        " = "
+;    print(z);
+          p         z
+          dout
+;    print(" = ");
+          pc        @L8
+          sout
+^@L8:     dw        " = "
+;    println(7);
+          pwc       7
+          dout
+          pc        '\n'
+          aout
+;    z = -(+x - + + - + + - + + + + - + + - + + -y);
+          pc        z
+          p         x
+          p         y
+          neg 
+          neg 
+          neg 
+          neg 
+          neg 
+          sub 
+          neg 
+;    print ("-14 = ");
+          stav
+          pc        @L9
+          sout
+^@L9:     dw        "-14 = "
+;    print(z);
+          p         z
+          dout
+;    print(" = ");
+          pc        @L10
+          sout
+^@L10:    dw        " = "
+;    println(-(-(+(-(14))))); 
+          pwc       14
+          neg 
+          neg 
+          neg 
+          dout
+          pc        '\n'
+          aout
+;    // no comment in following statement because // inside string
+;    println("////Enter integer////");   
+          pc        @L11
+          sout
+^@L11:    dw        "////Enter integer////"
+          pc        '\n'
+          aout
+;    readint(q);
+          pc        q
+          din 
+          stav
+;    print("= ");
+          pc        @L12
+          sout
+^@L12:    dw        "= "
+;    println(q + + + + 1 - 1); 
+          p         q
+          pwc       1
+          add 
+          pwc       1
+          sub 
+          dout
+          pc        '\n'
+          aout
+;    println("S3 test done"); 
+          pc        @L13
+          sout
+^@L13:    dw        "S3 test done"
+          pc        '\n'
+          aout
+          
+          halt
+
+x:        dw        0
+y:        dw        0
+z:        dw        0
+q:        dw        0
