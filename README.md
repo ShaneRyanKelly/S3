@@ -1,6 +1,6 @@
 This is a simple compiler written in C designed to support a number of functions
  and operations. This compiler compiles to a 16-bit assembly language for a simple
- register-oriented architecture. The compiler may be compiled from the s3.c source
+ stack-oriented architecture. The compiler may be compiled from the s3.c source
  code found in this directory. S3.s is the input file for the compiler which
  includes calls to the following i/o functions:
 
